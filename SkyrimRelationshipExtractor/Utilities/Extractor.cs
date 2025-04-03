@@ -91,7 +91,7 @@ namespace SkyrimRelationshipExtractor.Utilities
                             SecondaryActorName = MutagenRecordHelpers.GetActorName(rel.SecondaryActor),
                             SecondaryTitle = rel.SecondaryActor.Configuration.Flags.HasFlag(NpcConfiguration.Flag.Female) ? rel.Association.Title?.Female ?? "" : rel.Association.Title?.Male ?? "",
 
-                            RelationshipRank = (int)rel.RelationshipRank,
+                            RelationshipRank = MutagenRecordHelpers.RelationshipRankInt(rel.RelationshipRank),
 
                             IsDynamic = CheckDynamic(rel)
                         };
@@ -111,7 +111,7 @@ namespace SkyrimRelationshipExtractor.Utilities
                             SecondaryActor = rel.SecondaryActor.FormKey.ToString(),
                             SecondaryActorName = MutagenRecordHelpers.GetActorName(rel.SecondaryActor),
 
-                            RelationshipRank = (int)rel.RelationshipRank,
+                            RelationshipRank = MutagenRecordHelpers.RelationshipRankInt(rel.RelationshipRank),
 
                             IsDynamic = CheckDynamic(rel)
                         };

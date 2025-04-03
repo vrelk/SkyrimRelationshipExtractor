@@ -1,4 +1,5 @@
-﻿using SkyrimRelationshipExtractor.Utilities;
+﻿using System.Reflection;
+using SkyrimRelationshipExtractor.Utilities;
 
 namespace SkyrimRelationshipExtractor
 {
@@ -7,24 +8,47 @@ namespace SkyrimRelationshipExtractor
         static void Main(string[] args)
         {
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine("Skyrim Relationship Extractor for MinAi - v" + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version + Environment.NewLine);
+            Console.WriteLine("Skyrim Relationship Extractor for MinAi - v" + Assembly.GetExecutingAssembly().GetName().Version + Environment.NewLine);
+            PrintJenkinsBuild();
             Console.ResetColor();
 
-            Extractor extractor = new();
+            try
+            {
 
-            var relationships = extractor.ParseRelationships();
+                Extractor extractor = new();
 
-            FileInfo outFile = new("out.json");
+                var relationships = extractor.ParseRelationships();
 
-            File.WriteAllText(outFile.FullName, relationships.ToJson());
+                FileInfo outFile = new("out.json");
 
-            Console.WriteLine("Output written to: " + outFile.FullName);
-            Console.WriteLine();
+                File.WriteAllText(outFile.FullName, relationships.ToJson());
+
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine("Output written to: " + outFile.FullName);
+                Console.ResetColor();
+                Console.WriteLine();
+
+            }
+            catch (Exception ex)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine($"{ex.Message}");
+                Console.ResetColor();
+                Console.WriteLine();
+            }
 
             Console.WriteLine("Press the any key to exit...");
             Console.ReadKey();
 
             return;
+        }
+
+        private static void PrintJenkinsBuild()
+        {
+            var attribs = Assembly.GetExecutingAssembly().GetCustomAttributes<AssemblyMetadataAttribute>();
+            var jenkins = attribs.FirstOrDefault(x => x.Key.Equals("JenkinsBuild"));
+            if (jenkins != null && !string.IsNullOrWhiteSpace(jenkins.Value))
+                Console.WriteLine("Jenkins Build: " + jenkins.Value);
         }
     }
 }

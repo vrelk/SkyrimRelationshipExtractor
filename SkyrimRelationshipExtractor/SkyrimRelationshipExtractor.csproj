@@ -5,9 +5,29 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <PublishTrimmed>False</PublishTrimmed>
+    <PublishAot>False</PublishAot>
+    <PackageIcon></PackageIcon>
+    <Authors>Controller Vrelk</Authors>
+    <RepositoryUrl>https://github.com/vrelk/SkyrimRelationshipExtractor</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <AllowProjectDirectoryBuildOutput>true</AllowProjectDirectoryBuildOutput>
   </PropertyGroup>
 
   <ItemGroup>
+    <!-- Add the following to the dotnet or msbuild command -->
+    <!-- -p:JenkinsBuild="$BUILD_TAG" -->
+    <AssemblyAttribute Include="System.Reflection.AssemblyMetadataAttribute">
+      <_Parameter1>JenkinsBuild</_Parameter1>
+      <_Parameter2>$(BUILD_TAG)</_Parameter2>
+    </AssemblyAttribute>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="GitVersion.MsBuild" Version="6.2.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Mutagen.Bethesda.FormKeys.SkyrimSE" Version="3.4.0" />
     <PackageReference Include="Mutagen.Bethesda.Skyrim" Version="0.49.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />

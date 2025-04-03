@@ -28,5 +28,37 @@ namespace SkyrimRelationshipExtractor.Utilities
             else
                 ass.SecondaryTitle = "Boyfriend";
         }
+
+        /// <summary>
+        /// Convert a RankType to the int version skyrim uses.
+        /// </summary>
+        /// <param name="relation"></param>
+        /// <returns>-4 to 4</returns>
+        public static int RelationshipRankInt(Relationship.RankType relation)
+        {
+            switch (relation)
+            {
+                case Relationship.RankType.Lover:
+                    return 4;
+                case Relationship.RankType.Ally:
+                    return 3;
+                case Relationship.RankType.Confidant:
+                    return 2;
+                case Relationship.RankType.Friend:
+                    return 1;
+                case Relationship.RankType.Acquaintance:
+                    return 0;
+                case Relationship.RankType.Rival:
+                    return -1;
+                case Relationship.RankType.Foe:
+                    return -2;
+                case Relationship.RankType.Enemy:
+                    return -3;
+                case Relationship.RankType.Archnemesis:
+                    return -4;
+                default:
+                    return 0;
+            }
+        }
     }
 }
