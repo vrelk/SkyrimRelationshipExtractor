@@ -19,7 +19,7 @@
     <!-- -p:JenkinsBuild="$BUILD_TAG" -->
     <AssemblyAttribute Include="System.Reflection.AssemblyMetadataAttribute">
       <_Parameter1>JenkinsBuild</_Parameter1>
-      <_Parameter2>$(BUILD_TAG)</_Parameter2>
+      <_Parameter2>#$BUILD_NUMBER @$(date +"%Y/%m/%d %H:%M:%S %Z") -- $GIT_BRANCH:$GIT_COMMIT</_Parameter2>
     </AssemblyAttribute>
   </ItemGroup>
 
